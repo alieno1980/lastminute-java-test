@@ -5,6 +5,7 @@ import com.lastminute.javatest.salestaxes.factory.Client;
 import com.lastminute.javatest.salestaxes.factory.FoodItemFactory;
 import com.lastminute.javatest.salestaxes.factory.MedicalItemFactory;
 import com.lastminute.javatest.salestaxes.factory.OtherItemFactory;
+import com.lastminute.javatest.salestaxes.model.Basket;
 import com.lastminute.javatest.salestaxes.model.Item;
 
 import junit.framework.Test;
@@ -35,6 +36,14 @@ public class AppTest extends TestCase {
 		client.selectCategory(new FoodItemFactory());
 		Item item3 = client.createItem("chocolateBar", 0.85f, false);
 		assertEquals(0.85f, (item3.getPrice() + item3.getTaxAmount()));
+		
+		Basket basket = new Basket();
+		basket.addItem(item1);
+		basket.addItem(item2);
+		basket.addItem(item3);
+		
+		assertEquals(1.50f, basket.getSalesTaxes());
+		assertEquals(29.83f, basket.getTotal());
 	}
 	
 	public void testCaseTwo() {
@@ -47,6 +56,13 @@ public class AppTest extends TestCase {
 		client.selectCategory(new OtherItemFactory());
 		Item item2 = client.createItem("bottle of perfume", 47.50f, true);
 		assertEquals(54.65f, (item2.getPrice() + item2.getTaxAmount()));
+		
+		Basket basket = new Basket();
+		basket.addItem(item1);
+		basket.addItem(item2);
+		
+		assertEquals(7.65f, basket.getSalesTaxes());
+		assertEquals(65.15f, basket.getTotal());
 	}
 	
 	public void testCaseThree() {
@@ -66,6 +82,15 @@ public class AppTest extends TestCase {
 		
 		client.selectCategory(new FoodItemFactory());
 		Item item4 = client.createItem("box of chocolates", 11.25f, true);
-		assertEquals(11.80f, (item4.getPrice() + item4.getTaxAmount()));
+		assertEquals(11.85f, (item4.getPrice() + item4.getTaxAmount()));
+		
+		Basket basket = new Basket();
+		basket.addItem(item1);
+		basket.addItem(item2);
+		basket.addItem(item3);
+		basket.addItem(item4);
+		
+		assertEquals(6.70f, basket.getSalesTaxes());
+		assertEquals(74.68f, basket.getTotal());
 	}
 }
