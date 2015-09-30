@@ -14,10 +14,10 @@ public class Basket implements Printable {
 	public void addItem(Item item) {
 		if (items == null)
 			items = new ArrayList<Item>();
-		
 		items.add(item);
-		salesTaxes += item.getTaxAmount();
-		total += item.getPrice() + item.getTaxAmount();
+		
+		incrementSalesTaxes(item.getTaxAmount());
+		incrementTotal(item.getPrice() + item.getTaxAmount());
 	}
 	
 	public void emptyBasket() {
@@ -26,6 +26,14 @@ public class Basket implements Printable {
 		
 		salesTaxes = 0f;
 		total = 0f;
+	}
+	
+	private void incrementSalesTaxes(float itemTax) {
+		salesTaxes += itemTax;
+	}
+	
+	private void incrementTotal(float itemPriceTaxIncluded) {
+		total += itemPriceTaxIncluded;
 	}
 	
 	public float getSalesTaxes() {
