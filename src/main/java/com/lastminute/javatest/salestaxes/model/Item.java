@@ -30,7 +30,7 @@ public abstract class Item implements Taxable, Printable {
 	public float getTaxAmount() {
 		float tax = Taxable.STANDARD_TAX;
 		if (isImported) tax += Taxable.IMPORT_TAX;
-		return Utils.round005(price * (tax / 100f));
+		return Utils.roundUpNearest005(price * (tax / 100f));
 	}
 	
 	public void printDetails() {

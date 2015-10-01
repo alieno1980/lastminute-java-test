@@ -7,7 +7,7 @@ public class ExemptTaxItem extends Item {
 	public float getTaxAmount() {
 		float tax = 0f;
 		if (isImported) tax = Taxable.IMPORT_TAX;
-		return Utils.round005(price * (tax / 100f));
+		return Utils.roundUpNearest005(price * (tax / 100f));
 	}
 
 }

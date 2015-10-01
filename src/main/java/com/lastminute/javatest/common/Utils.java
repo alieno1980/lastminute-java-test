@@ -1,14 +1,26 @@
 package com.lastminute.javatest.common;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.StringTokenizer;
 
 public class Utils {
-
-	public static float round005(float n) {
-		return Math.round(n * 20f) / 20f;
+	
+	/*
+	 * Rounds up to the nearest 0.05
+	 */
+	public static float roundUpNearest005(float n) {
+		BigDecimal d = new BigDecimal(n);
+		BigDecimal scale = new BigDecimal("0.05"); // the rounding policy
+		BigDecimal y = d.divide(scale);
+		BigDecimal q = y.setScale(0, BigDecimal.ROUND_UP); // round up
+		BigDecimal z = q.multiply(scale);
+		return z.floatValue();
 	}
 	
+	/*
+	 * Prints the input string if clause
+	 */
 	public static String getStringIf(String s, boolean clause) {
 		if (clause)
 			return s;
@@ -16,6 +28,9 @@ public class Utils {
 			return "";
 	}
 	
+	/*
+	 * Formats decimal numbers like #.##
+	 */
 	public static String getFormattedDecimal(String pattern, float n) {
 		String formattedDecimalString = new DecimalFormat(pattern).format(n);
 		if (formattedDecimalString.indexOf(",") < 0)
